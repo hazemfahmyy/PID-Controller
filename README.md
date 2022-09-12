@@ -149,7 +149,8 @@ Using P_throttle = 0.5, I_throttle = 0, D_throttle = 0:
 
 
 The final vehicle behavior of the PID controller:
-![mov3](./final_pid.gif)
+
+![mov3](./final_pid.mp4)
 
 Answer the following questions:
 - Add the plots to your report and explain them (describe what you see)
