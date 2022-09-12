@@ -65,7 +65,7 @@ Run the simulator and see in the desktop mode the car in the CARLA simulator. Ta
 
 ## Results
 
-![mov1](initial.mov)
+![mov1](./initial.mov)
 
 ### Step 2: PID controller for throttle:
 1) In [main.cpp](https://github.com/udacity/nd013-c6-control-starter/tree/mathilde/project_c6/project/pid_controller/main.cpp), complete the TODO (step 2) to compute the error for the throttle pid. The error is the speed difference between the actual speed and the desired speed.
