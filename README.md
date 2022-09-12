@@ -107,12 +107,66 @@ pip3 install pandas
 pip3 install matplotlib
 ```
 
+## Results
+
+In total, we had to fine-tune 6 parameters (3 for pid_steer, 3 for pid_throttle), which is very inefficient to tune manually (we could have 2^6 combinations). I have attempted to implement the Twiddle algorithm (in PID::Twiddle) but it had many compilation errors in addition to the fact that the code in Sebastian's lecture had to be in an outer loop (different from the code structure in main.cpp). For that reason I had opted to fine-tune it manually.
+
+First, I tried to see the effect of each of P without I and D, and P with I, and P with D, for the steering and throttle, to observe the vehicle behavior based on each of them.
+
+Using P_steering = 0.3 , I_steering = 0, D_steering = 0:
+![img1](./P0.3_I0_D0_Steering.png)
+
+It seems that the proportional part lead the vehicle to drift away aggressively.
+
+Using P_steering = 0.3, I_steering = 0.3, D_steering = 0:
+![img2](./P0.3_I0.3_D0_Steering.png)
+
+It seems that we need the integral part in our fine-tuning, but with much less values.
+
+Using P_steering = 0.3, I_steering = 0, D_steering = 0.3:
+![img3](./P0.3_I0_D0.3_Steering.png)
+
+The derivative component helps the steering to move smoothly, but we still need the integral component.
+
+
+Using P_steering = 0.3, I_steering = 0.001, D_steering = 0.3:
+![img4](./P0.3_I0.001_D0.3_Steering.png)
+
+
+Although the throttle error largerly depends on the steering error, I plot below the different tuning stages of the throttle PID controller.
+
+Using P_throttle = 0.3, I_throttle = 0, D_throttle = 0:
+![img5](./P0.3_I0_D0_Throttle.png)
+
+Using P_throttle = 0.2, I_throttle = 0, D_throttle = 0.1:
+![img6](./P0.2_I0_D0.1_Throttle.png)
+
+At that point it seemed that the throttle wasn't responsiple for the bad behavior of the vehicle, and extra tuning of the steering is needed.
+Also, It was obvious that the integral part of the throttle wasn't needed, in addition to the differential part, but the proportional part needed a littile bit of tuning to allow a smooth driving.
+
+Using P_throttle = 0.5, I_throttle = 0, D_throttle = 0:
+![img7](./P0.5_I0_D0_Throttle.png)
+
+
+The final vehicle behavior of the PID controller:
+![mov3](./final_pid.gif)
+
 Answer the following questions:
 - Add the plots to your report and explain them (describe what you see)
++ Added above.
+
 - What is the effect of the PID according to the plots, how each part of the PID affects the control command?
++ From the experimental fine-tuning done above, it seemed that the integral and derivative component wasnot needed in the PID_throttle, however, both are needed for the PID_steering.
+
 - How would you design a way to automatically tune the PID parameters?
++ I attempted to implement the Twiddle algorithm (PID::Twiddle) but it resulted into many compilations error, so I opted to manually fine-tuning (which is very ineffective)
+
 - PID controller is a model free controller, i.e. it does not use a model of the car. Could you explain the pros and cons of this type of controller?
+- Very inefficient when having to balance the PID components according to the motion behavior (instead of waiting a feedback from the sensors)
++ Easily implemented and fine-tuned
+
 - (Optional) What would you do to improve the PID controller?
++ Implement Twiddle algorithm and use a bicycle motion model for extra fine-tuning.
 
 
 ### Tips:
