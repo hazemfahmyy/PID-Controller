@@ -358,6 +358,7 @@ int main ()
           **/
           // modify the following line for step 2
           //error_throttle = 0;
+		// final speed - current speed
           error_throttle = v_points.back() - velocity;
 
 
