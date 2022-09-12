@@ -150,23 +150,28 @@ Using P_throttle = 0.5, I_throttle = 0, D_throttle = 0:
 
 The final vehicle behavior of the PID controller:
 
-![mov3](./final_pid.mp4)
+![mov3](./final_pid_.gif)
 
 Answer the following questions:
 - Add the plots to your report and explain them (describe what you see)
+  
   Added above.
 
 - What is the effect of the PID according to the plots, how each part of the PID affects the control command?
+  
   From the experimental fine-tuning done above, it seemed that the integral and derivative component wasnot needed in the PID_throttle, however, both are needed for the PID_steering.
 
 - How would you design a way to automatically tune the PID parameters?
+  
   I attempted to implement the Twiddle algorithm (PID::Twiddle) but it resulted into many compilations error, so I opted to manually fine-tuning (which is very ineffective)
 
 - PID controller is a model free controller, i.e. it does not use a model of the car. Could you explain the pros and cons of this type of controller?
-  Con: Very inefficient when having to balance the PID components according to the motion behavior (instead of waiting a feedback from the sensors)
+  
+  Con: Very inefficient when having to balance the PID components according to sensors feedback (instead of following a motion behavior)
   Pro: Easily implemented and fine-tuned
 
 - (Optional) What would you do to improve the PID controller?
+  
   Implement Twiddle algorithm and use a bicycle motion model for extra fine-tuning.
 
 
